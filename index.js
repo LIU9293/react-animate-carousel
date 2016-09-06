@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-//import style from 'animate.css';
+import 'animate.css';
+import './index.css';
 
 const styles = {
   wapper: {
@@ -48,6 +49,7 @@ class AnimateCarousel extends React.Component{
       currentSlider: 0,
       appearType: 'fadeIn animated',
       disappearType: 'fadeOut animated',
+      addonType: 'scaleIn',
     }
     this.config = {
       animateType: this.props.animateType || 'fade',
@@ -56,6 +58,7 @@ class AnimateCarousel extends React.Component{
       thumbnail: this.props.thumbnail || 'true',
       height: this.props.height || '',
       width: this.props.width || '',
+      addon: this.props.addon || '',
     }
     this.t = null;
     this.autoplay = this.autoplay.bind(this);
@@ -69,8 +72,32 @@ class AnimateCarousel extends React.Component{
         this.autoplay()
       }, this.config.speed)
     };
-    var appearType, disappearType;
-    switch (this.config.animateType) {
+    this.setupAnimateType(this.config.animateType);
+    this.setupAddon(this.config.addon);
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.t);
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.animateType !== this.props.animateType){
+      this.setupAnimateType(nextProps.animateType);
+    }
+    if(nextProps.addon !== this.props.addon){
+      this.setupAddon(nextProps.addon);
+    }
+  }
+
+  setupAddon(addon){
+    this.setState({
+      addonType: addon
+    })
+  }
+
+  setupAnimateType(type){
+    let appearType, disappearType;
+    switch (type) {
       case 'fade':
         appearType = 'fadeIn animated';
         disappearType = 'fadeOut animated';
@@ -105,10 +132,6 @@ class AnimateCarousel extends React.Component{
     })
   }
 
-  componentWillUnmount(){
-    clearInterval(this.t);
-  }
-
   autoplay(){
     if(this.state.currentSlider == this.state.sliderCount - 1){
       this.changeSlide(0);
@@ -134,6 +157,16 @@ class AnimateCarousel extends React.Component{
     let current = this.refs[this.state.currentSlider];
     next.className = this.state.appearType;
     current.className = this.state.disappearType;
+    let nextChild = next.childNodes[0];
+    let currentChild = current.childNodes[0];
+    nextChild.className = this.state.addonType;
+    setTimeout(()=>{currentChild.className = ''}, 1000);
+    /*console.log(next);
+    const listener = () => {
+      console.log('the animation is ended !');
+      next.removeEventListener('animationend', listener)
+    }
+    next.addEventListener('animationend', listener)*/
     this.setState({
       currentSlider: nextPage
     })
@@ -166,22 +199,16 @@ class AnimateCarousel extends React.Component{
       })
     }
     let slides = this.props.children.map((item, ii)=>{
-      if(ii !== 0){
-        return(
-          <div style={styles.slide} key={ii} ref={ii} className={this.state.disappearType} >
+      return(
+        <div style={styles.slide} key={ii} ref={ii} className={ ii == 0 ? this.state.appearType : this.state.disappearType} >
+          <div className={ ii == 0 ? this.state.addonType : ''}>
             {item}
           </div>
-        )
-      } else {
-        return(
-          <div style={styles.slide} key={ii} ref={ii} className={this.state.appearType} >
-            {item}
-          </div>
-        )
-      }
+        </div>
+      )
     })
     return(
-      <div style={styles.wapper} style={this.props.style}>
+      <div style={{...styles.wapper, ...this.props.style}} >
         <div style={{...styles.main, height: this.props.height || '600px'}}>
           {slides}
         </div>

@@ -5,10 +5,66 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>react-animate-carousel</title>
-    <link rel="stylesheet" href="https://daneden.github.io/animate.css/animate.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,400italic,700italic,700" rel="stylesheet" type="text/css">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <style>
+      html, body{
+        font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+        height: 100%;
+        width: 100%;
+      }
+      #app{
+        height:100%;
+        width:100%;
+      }
+      .pclass{
+        width: 600px;
+        margin: auto;
+        text-align: left;
+        color: #999;
+        line-height: 32px;
+      }
+      .bigTitle{
+        font-size: 4em;
+        color: #f35626;
+        font-weight: 200;
+        background-image: -webkit-linear-gradient(92deg,#f35626,#feab3a);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -webkit-animation: hue 60s infinite linear;
+      }
+      .description{
+        font-size: 20px;
+        font-weight: 200;
+        color: #2B6882;
+        margin-bottom: 30px;
+        text-decoration: none;
+      }
+      .ratio:hover{
+        cursor: pointer;
+      }
+      .ratio{
+        display: inline-block;
+        border: 1px solid #999;
+        height: 50px;
+      }
+      .selected{
+        color: #f35626;
+        border-color: #f35626;
+        -webkit-animation: hue 60s infinite linear;
+      }
+      @-webkit-keyframes hue {
+        from {
+          -webkit-filter: hue-rotate(0deg);
+        }
+
+        to {
+          -webkit-filter: hue-rotate(-360deg);
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>

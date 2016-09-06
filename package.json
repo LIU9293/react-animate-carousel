@@ -4,14 +4,14 @@
   "description": "a simple plugin to build a carousel on top of animate.css",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel --minified index.js > dist/index.js",
+    "demo": "webpack"
   },
   "keywords": [
     "carousel",
     "react",
     "animate.css"
   ],
-
   "author": "lock",
   "license": "MIT",
   "dependencies": {
@@ -26,10 +26,8 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
+    "css-loader": "^0.25.0",
+    "style-loader": "^0.13.1",
     "webpack": "^1.13.1"
-  },
-  "scripts": {
-    "build": "babel --minified index.js > dist/index.js",
-    "demo": "webpack"
   }
 }

@@ -1,0 +1,46 @@
+/*
+ *    this css file is used for addon animation;
+ */
+
+.scaleIn{
+  animation: scaleIn 4s linear ;
+  -webkit-animation: scaleIn 4s linear ;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+.scaleOut{
+  animation: scaleOut 4s linear ;
+  -webkit-animation: scaleOut 4s linear ;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+.blur{
+  animation: blur 2s linear ;
+  -webkit-animation: blur 2s linear ;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes scaleIn {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1)
+  }
+}
+@-webkit-keyframes scaleOut {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1)
+  }
+}
+@-webkit-keyframes blur {
+  from {
+    -webkit-filter: blur(4px);
+  }
+  to {
+    -webkit-filter: blur(0);
+  }
+}
